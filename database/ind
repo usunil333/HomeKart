@@ -1,0 +1,788 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.11
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 28, 2017 at 11:40 AM
+-- Server version: 5.6.21
+-- PHP Version: 5.5.19
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+05:45";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `homekart`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asset_archive`
+--
+
+CREATE TABLE IF NOT EXISTS `asset_archive` (
+  `productID` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `price` int(20) NOT NULL,
+  `image` varchar(50) NOT NULL,
+  `details` text NOT NULL,
+  `quantity` int(20) NOT NULL,
+  `date_created` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `asset_depreciation`
+--
+
+CREATE TABLE IF NOT EXISTS `asset_depreciation` (
+  `item_id` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `salvage_val` int(11) NOT NULL,
+  `years` int(11) NOT NULL,
+  `depmed` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `asset_depreciation`
+--
+
+INSERT INTO `asset_depreciation` (`item_id`, `price`, `salvage_val`, `years`, `depmed`) VALUES
+(1, 20000, 500, 5, 2),
+(2, 15000, 200, 5, 1),
+(3, 1500, 200, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `audit_trail`
+--
+
+CREATE TABLE IF NOT EXISTS `audit_trail` (
+`KeyID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
+  `User` varchar(50) NOT NULL,
+  `Date_time` varchar(50) NOT NULL,
+  `Outcome` varchar(20) NOT NULL,
+  `Detail` varchar(250) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `backup_dbname`
+--
+
+CREATE TABLE IF NOT EXISTS `backup_dbname` (
+  `ID` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Date` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment`
+--
+
+CREATE TABLE IF NOT EXISTS `comment` (
+`Num` int(11) NOT NULL,
+  `announcementID` int(11) NOT NULL,
+  `Comment` varchar(500) NOT NULL,
+  `CustomerID` int(11) NOT NULL,
+  `date_posted` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE IF NOT EXISTS `customers` (
+`CustomerID` int(11) NOT NULL,
+  `Firstname` char(50) NOT NULL,
+  `Middle_name` char(50) NOT NULL,
+  `Lastname` char(50) NOT NULL,
+  `Birthday` date NOT NULL,
+  `Address` varchar(100) NOT NULL,
+  `City` varchar(50) NOT NULL,
+  `Contact_number` varchar(50) NOT NULL,
+  `Gender` char(11) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
+  `Date_created` varchar(50) NOT NULL,
+  `status` varchar(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`CustomerID`, `Firstname`, `Middle_name`, `Lastname`, `Birthday`, `Address`, `City`, `Contact_number`, `Gender`, `Email`, `Password`, `Date_created`, `status`) VALUES
+(1, 'Prashant', '', 'Subedi', '1996-03-21', 'Hetauda-6', 'Hetauda City', '9845404434', 'Male', 'njrprashant@gmail.com', '79cfeb94595de33b3326c06ab1c7dbda', 'April 25, 2017 10:52:pm  ', 'inactive');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_archive`
+--
+
+CREATE TABLE IF NOT EXISTS `customer_archive` (
+  `CustomerID` int(11) NOT NULL,
+  `Firstname` char(50) NOT NULL,
+  `Middle_name` char(50) NOT NULL,
+  `Lastname` char(50) NOT NULL,
+  `Birthday` date NOT NULL,
+  `Address` varchar(100) NOT NULL,
+  `City` varchar(50) NOT NULL,
+  `Contact_number` varchar(50) NOT NULL,
+  `Gender` char(11) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
+  `Date_created` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dep_method`
+--
+
+CREATE TABLE IF NOT EXISTS `dep_method` (
+  `methodID` int(11) NOT NULL,
+  `dep_method` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dep_method`
+--
+
+INSERT INTO `dep_method` (`methodID`, `dep_method`) VALUES
+(1, 'Straight Line Depreciation'),
+(2, 'Double Declining Balance Depreciation');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_category`
+--
+
+CREATE TABLE IF NOT EXISTS `item_category` (
+  `category_id` int(10) NOT NULL,
+  `item_name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `item_category`
+--
+
+INSERT INTO `item_category` (`category_id`, `item_name`) VALUES
+(1, 'Office Machine'),
+(2, 'Computer Accessories'),
+(3, 'Furniture'),
+(4, 'Filing & Storage'),
+(5, 'Office Supplies');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loginout_history`
+--
+
+CREATE TABLE IF NOT EXISTS `loginout_history` (
+`Primary` int(11) NOT NULL,
+  `CustomerID` int(11) NOT NULL,
+  `User` varchar(50) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Time_in` varchar(50) NOT NULL,
+  `Time_out` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `loginout_history`
+--
+
+INSERT INTO `loginout_history` (`Primary`, `CustomerID`, `User`, `Name`, `Time_in`, `Time_out`) VALUES
+(1, 7, 'njrprashant@gmail.com', 'Prashant', 'April 25, 2017 10:52:pm  ', 'April 25, 2017 11:03:pm  '),
+(2, 7, 'njrprashant@gmail.com', 'Prashant', 'April 27, 2017 8:52:pm  ', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loginout_serverhistory`
+--
+
+CREATE TABLE IF NOT EXISTS `loginout_serverhistory` (
+`Primary` int(11) NOT NULL,
+  `AdminID` int(11) NOT NULL,
+  `User` varchar(50) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Time_in` varchar(50) NOT NULL,
+  `Time_out` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `loginout_serverhistory`
+--
+
+INSERT INTO `loginout_serverhistory` (`Primary`, `AdminID`, `User`, `Name`, `Time_in`, `Time_out`) VALUES
+(1, 1, 'Prashant', 'Prashant Subedi ', 'April 28, 2017 4:08:pm  ', ''),
+(13, 3, 'binaya', 'Binaya Neupane ', 'April 28, 2017 4:56:pm  ', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message`
+--
+
+CREATE TABLE IF NOT EXISTS `message` (
+`ID` int(11) NOT NULL,
+  `CustomerID` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Subject` varchar(20) NOT NULL,
+  `Message` varchar(1000) NOT NULL,
+  `Date_created` varchar(50) NOT NULL,
+  `Status` varchar(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`ID`, `CustomerID`, `Name`, `Email`, `Subject`, `Message`, `Date_created`, `Status`) VALUES
+(1, 1, 'Prashant Subedi', 'njrprashant@gmail.com', 'wqe`s', 'sdasdasda', 'April 26, 2017 9:21:pm  ', 'Seen');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notif`
+--
+
+CREATE TABLE IF NOT EXISTS `notif` (
+  `notifID` int(11) NOT NULL,
+  `orderID` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `date_ordered` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notif`
+--
+
+INSERT INTO `notif` (`notifID`, `orderID`, `status`, `date_ordered`) VALUES
+(1, 1, 'Seen', '2017-04-28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `OrderID` int(11) NOT NULL,
+  `customerID` int(11) NOT NULL,
+  `total` varchar(30) NOT NULL,
+  `orderdate` date NOT NULL,
+  `Date_paid` varchar(50) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `deliverystatus` varchar(50) NOT NULL,
+  `Transaction_code` varchar(50) NOT NULL,
+  `tax` int(11) NOT NULL,
+  `shipping_address` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`OrderID`, `customerID`, `total`, `orderdate`, `Date_paid`, `status`, `deliverystatus`, `Transaction_code`, `tax`, `shipping_address`) VALUES
+(1, 1, '95000', '2017-04-28', 'April 28, 2017 4:16:pm  ', 'Confirmed', 'Delivered', 'AA0011', 960, 'Kantirajpath,Hetauda City');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_details`
+--
+
+CREATE TABLE IF NOT EXISTS `order_details` (
+  `CustomerID` int(10) NOT NULL,
+  `Quantity` int(10) NOT NULL,
+  `ProductID` int(10) NOT NULL,
+  `Total` int(10) NOT NULL,
+  `Total_qty` varchar(50) NOT NULL,
+  `OrderID` varchar(10) NOT NULL,
+  `Orderdetailsid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`CustomerID`, `Quantity`, `ProductID`, `Total`, `Total_qty`, `OrderID`, `Orderdetailsid`) VALUES
+(1, 1, 1, 95000, '95', '1', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchases`
+--
+
+CREATE TABLE IF NOT EXISTS `purchases` (
+`id` int(10) NOT NULL,
+  `trasaction_id` varchar(600) NOT NULL,
+  `payer_fname` varchar(300) NOT NULL,
+  `payer_lname` varchar(300) NOT NULL,
+  `payer_address` varchar(300) NOT NULL,
+  `payer_city` varchar(300) NOT NULL,
+  `payer_country` varchar(300) NOT NULL,
+  `payer_email` text NOT NULL,
+  `posted_date` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reply_message`
+--
+
+CREATE TABLE IF NOT EXISTS `reply_message` (
+`Primary_key` int(11) NOT NULL,
+  `CustomerID` int(11) NOT NULL,
+  `Recipient` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `From_admin` varchar(50) NOT NULL,
+  `Message` varchar(1000) NOT NULL,
+  `Date_created` varchar(50) NOT NULL,
+  `Status` varchar(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reply_message`
+--
+
+INSERT INTO `reply_message` (`Primary_key`, `CustomerID`, `Recipient`, `Email`, `From_admin`, `Message`, `Date_created`, `Status`) VALUES
+(1, 1, 'Prashant', 'njrprashant@gmail.com', 'Prashant Subedi', 'thank you', 'April 28, 2017 9:16:pm  ', 'Seen');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sent_messages`
+--
+
+CREATE TABLE IF NOT EXISTS `sent_messages` (
+`ID` int(11) NOT NULL,
+  `CustomerID` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Subject` varchar(20) NOT NULL,
+  `Message` varchar(1000) NOT NULL,
+  `Date_created` varchar(50) NOT NULL,
+  `Status` varchar(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sent_messages`
+--
+
+INSERT INTO `sent_messages` (`ID`, `CustomerID`, `Name`, `Email`, `Subject`, `Message`, `Date_created`, `Status`) VALUES
+(1, 1, 'Prashant Subedi', 'njrprashant@gmail.com', 'wqe`s', 'sdasdasda', 'April 28, 2017 4:21:pm  ', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_announcement`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_announcement` (
+  `announcementID` int(11) NOT NULL,
+  `detail` text NOT NULL,
+  `date` datetime NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `place` varchar(50) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `status` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_announcement`
+--
+
+INSERT INTO `tb_announcement` (`announcementID`, `detail`, `date`, `name`, `place`, `image`, `status`) VALUES
+(1, 'Price Rs 75,000only', '2017-04-28 00:30:00', 'PROMO FOR The Day', 'Hetauda ', 'upload/d.JPEG', 'Seen'),
+(2, 'PRomo', '2017-04-28 00:30:00', 'PROMO FOR The Day', 'Hetauda', 'upload/a.JPG', 'Seen'),
+(3, 'asdasdasdas', '2017-04-28 00:30:00', 'PROMO FOR THE Day', 'Hetauda', 'upload/b.jpg', 'Seen');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_equipment`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_equipment` (
+  `item_id` int(11) NOT NULL,
+  `item_code` text NOT NULL,
+  `item_name` varchar(500) NOT NULL,
+  `brand_name` varchar(250) NOT NULL,
+  `price` int(11) NOT NULL,
+  `employee_id` varchar(250) NOT NULL,
+  `item_category` int(30) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `supplier_id` varchar(250) NOT NULL,
+  `date_post` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_productreport`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_productreport` (
+`ProductID` int(11) NOT NULL,
+  `Beg_qty` varchar(50) NOT NULL,
+  `updated_qty` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_productreport`
+--
+
+INSERT INTO `tb_productreport` (`ProductID`, `Beg_qty`, `updated_qty`) VALUES
+(1, '100', ''),
+(2, '100', ''),
+(3, '100', ''),
+(4, '100', ''),
+(5, '100', ''),
+(6, '100', ''),
+(7, '100', ''),
+(8, '100', ''),
+(9, '50', ''),
+(10, '30', ''),
+(11, '20', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_products`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_products` (
+`productID` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `price` int(20) NOT NULL,
+  `image` varchar(200) NOT NULL,
+  `details` text NOT NULL,
+  `quantity` int(20) NOT NULL,
+  `date_created` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_products`
+--
+
+INSERT INTO `tb_products` (`productID`, `name`, `price`, `image`, `details`, `quantity`, `date_created`) VALUES
+(1, 'Dell-Inspiron-5368-t', 95000, 'products/a.JPG', 'Display- 13.3 inch LED Backlit Touch Display Full HD (1920 x 1080) resolution GPU- Intel HD Graphics 520CPU- 6th Generation Intel Core i7 Memory- 8 GB DDR4 SDRAM  Battery– 42 WHr, 3-Cell Battery   ', 95, 'April 26, 2017 11:34:am '),
+(2, 'Dell-inspiron-13-7000-7359', 99990, 'products/b.JPG', 'Display- 15.6 inch LED Backlit Touch Display with Truelife and FHD resolution (1920 x 1080) CPU- 6th Generation Intel Core i5-6200U Processor GPU- Intel HD Graphics 520 Memory- 8 GB DDR3L SDRAM Battery : 43 WHr, 3-Cell Battery  ', 95, 'April 26, 2017 11:34:am '),
+(3, 'Dell-XPS-13-9343', 99000, 'products/c.JPG', 'Display- 13.3” QHD(3200×1800) Infinity-edge touch display CPU- 6th Generation Intel Core i5-6200U Processor GPU- Intel® HD Graphics 520 Memory- 8GB LPDDR3-1866MHz RAM Battery : 56Whr, 4-Cell Battery', 99, 'April 26, 2017 11:34:am '),
+(4, 'Dell-latitude_e5450', 90000, 'products/d.jpeg', 'Display- 14.0” HD (1366×768), Anti-Glare LCD display CPU- 5th Generation Intel Core i5-5200U Processor GPU- Intel HD Graphics 5500 Graphics Memory- 4 GB DDR3L SDRAM Battery:4-cell 51Whr Battery', 100, 'April 27, 2017 11:30:am '),
+(5, 'Lenovo_Ideapad_500', 15000, 'products/e.JPG', 'Display- 13.3-inch QHD + 3,200 x 1,800 IPS display CPU- 2.5GHz Intel Core i7-6500U GPU- Intel HD Graphics 520 Memory- 16GB LP-DDR3 RAM Storage- 512GB SSD Battery:Up to 9 Hours Local Video Playback', 100, 'April 27, 2017 11:30:am '),
+(6, 'Lenovo-Thinkpad-T460', 1800, 'products/f.JPG', 'Display- 14.0 inch 16:9 HD (1366×768) CPU- 2.4 GHz Intel Core i5 GPU- Integrated Intel® HD Graphics 4400 Memory- 8 GB DDR3L SDRAM 1600 MHz Storage- 500GB HDD Battery- 46 Wh, 23mAh Lithium-Ion, removable', 100, 'May 1, 2017 8:22:pm  '),
+(7, 'lenovo-yoga-900', 2800, 'products/g.png', 'Display- 14 inch FHD (1920 x 1080) Touch CPU- Intel Core i7 5500U Processor GPU- 2GB NVIDIA GeForce GT 940M Memory- 8.0GB DDR3L 1600 MHz Storage- 256GB SSD Battery- Up to 7.2 hours4 Cell 44.8 Watt Hour Li-Polymer', 100, 'May 1, 2017 11:40:pm  '),
+(8, 'Lenovo_Yoga_3', 2000, 'products/h.JPG', 'Display- 14 inch 1920 x 1080 pixels FHD CPU- 5th Gen Intel® Core™ i7 Processor GPU- Intel Graphic + 2GB Graphic AMD R9 M275 Memory- 8GB Storage- 1TB HDD (5400RPM) Battery- Up to 5 hours WiFi browsing depending on configuration', 100, 'May 2, 2017 10:33:am  '),
+(9, 'Hp-SlateBook-e1484573699907', 6000, 'products/i.JPG', 'Display- 10.1 inch diagonal WUXGA LED-backlit IPS Touchscreen (1920 x 1200) CPU- 1.8 GHz NVIDIA Tegra T40S 4-Plus-1 Quad GPU- NVIDIA® GeForce® GTX 960M with 4GB GDDR5 VRAM Memory- 2GB 1600MHz DDR3L SDRAM Storage- 64 GB eMMC Battery- 2-cell Li-Ion polymer', 50, 'May 3, 2017 10:40:am  '),
+(10, 'Hp-242-G1-e1484573352498', 5000, 'products/j.JPG', 'Display- 14 inch diagonal HD SVA BrightView WLED-backlit (1366 x 768) CPU- Intel® Core™ i5-6200U (2.3 GHz, up to 2.8 GHz, 3 MB cache, 2 cores) GPU- AMD Radeon™ R5 M430 Graphics (2 GB DDR3 dedicated) Memory- 4 GB DDR4-2133 SDRAM (1 x 4 GB) Storage- 1 TB 5400 rpm SATA Battery- 4-cell, 41 Wh Li-ion', 30, 'May 3, 2017 12:42:pm  '),
+(11, 'HP-spectre', 5500, 'products/k.png', 'Display- 13.3 inch diagonal FHD IPS UWVA BrightView Corning® Gorilla® Glass WLED-backlit (1920 x 1080) CPU- Intel® Core™ i5-7200U (2.5 GHz, up to 3.1 GHz, 3 MB cache, 2 cores), 7th Generation GPU- Intel® HD Graphics 620 Memory- 8 GB LPDDR3-1866 SDRAM (onboard) Storage- 256 GB PCIe® NVMe™ M.2 SSD Battery- 4-cell, 38 Wh Li-ion', 19, 'May 4, 2017 12:52:pm  ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_sentmessage`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_sentmessage` (
+`Primary_key` int(11) NOT NULL,
+  `CustomerID` int(11) NOT NULL,
+  `Recipient` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `From_admin` varchar(50) NOT NULL,
+  `Message` varchar(1000) NOT NULL,
+  `Date_created` varchar(50) NOT NULL,
+  `Status` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_sentmessage`
+--
+
+INSERT INTO `tb_sentmessage` (`Primary_key`, `CustomerID`, `Recipient`, `Email`, `From_admin`, `Message`, `Date_created`, `Status`) VALUES
+(1, 1, 'Prashant Subedi ', 'njrprashant@gmail.com', 'Prashant Subedi', 'thank you', 'September 15, 2015 3:22:pm  ', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_user`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_user` (
+  `userID` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `utype` int(11) NOT NULL,
+  `Employee` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_user`
+--
+
+INSERT INTO `tb_user` (`userID`, `username`, `password`, `utype`, `Employee`) VALUES
+(1, 'Prashant', '79cfeb94595de33b3326c06ab1c7dbda', 3, 'Prashant Subedi '),
+(2, 'Sudeep', 'b988f501cab501f235a1b2c764bbea5c', 2, 'Sudeep Magar'),
+(3, 'binaya', '54eff46137ed9d868d35d22b734534df', 1, 'Binaya Neupane '),
+(4, 'prashant1', '7bc6c31880aeda581aa34e218af25753', 4, 'Prashant Subedi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_type`
+--
+
+CREATE TABLE IF NOT EXISTS `user_type` (
+  `typeID` int(11) NOT NULL,
+  `user_type` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_type`
+--
+
+INSERT INTO `user_type` (`typeID`, `user_type`) VALUES
+(1, 'ADVERTISING Admin'),
+(2, 'ASSET Admin'),
+(3, 'ONLINE ORDERING Admin'),
+(4, 'SUPER Admin');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `asset_depreciation`
+--
+ALTER TABLE `asset_depreciation`
+ ADD PRIMARY KEY (`item_id`);
+
+--
+-- Indexes for table `audit_trail`
+--
+ALTER TABLE `audit_trail`
+ ADD PRIMARY KEY (`KeyID`);
+
+--
+-- Indexes for table `backup_dbname`
+--
+ALTER TABLE `backup_dbname`
+ ADD PRIMARY KEY (`Name`);
+
+--
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
+ ADD PRIMARY KEY (`Num`);
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+ ADD PRIMARY KEY (`CustomerID`);
+
+--
+-- Indexes for table `customer_archive`
+--
+ALTER TABLE `customer_archive`
+ ADD PRIMARY KEY (`CustomerID`);
+
+--
+-- Indexes for table `dep_method`
+--
+ALTER TABLE `dep_method`
+ ADD PRIMARY KEY (`methodID`);
+
+--
+-- Indexes for table `item_category`
+--
+ALTER TABLE `item_category`
+ ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `loginout_history`
+--
+ALTER TABLE `loginout_history`
+ ADD PRIMARY KEY (`Primary`);
+
+--
+-- Indexes for table `loginout_serverhistory`
+--
+ALTER TABLE `loginout_serverhistory`
+ ADD PRIMARY KEY (`Primary`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+ ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `notif`
+--
+ALTER TABLE `notif`
+ ADD PRIMARY KEY (`notifID`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+ ADD PRIMARY KEY (`OrderID`);
+
+--
+-- Indexes for table `order_details`
+--
+ALTER TABLE `order_details`
+ ADD PRIMARY KEY (`Orderdetailsid`);
+
+--
+-- Indexes for table `purchases`
+--
+ALTER TABLE `purchases`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `reply_message`
+--
+ALTER TABLE `reply_message`
+ ADD PRIMARY KEY (`Primary_key`);
+
+--
+-- Indexes for table `sent_messages`
+--
+ALTER TABLE `sent_messages`
+ ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `tb_announcement`
+--
+ALTER TABLE `tb_announcement`
+ ADD PRIMARY KEY (`announcementID`);
+
+--
+-- Indexes for table `tb_equipment`
+--
+ALTER TABLE `tb_equipment`
+ ADD PRIMARY KEY (`item_id`);
+
+--
+-- Indexes for table `tb_productreport`
+--
+ALTER TABLE `tb_productreport`
+ ADD PRIMARY KEY (`ProductID`);
+
+--
+-- Indexes for table `tb_products`
+--
+ALTER TABLE `tb_products`
+ ADD PRIMARY KEY (`productID`);
+
+--
+-- Indexes for table `tb_sentmessage`
+--
+ALTER TABLE `tb_sentmessage`
+ ADD PRIMARY KEY (`Primary_key`);
+
+--
+-- Indexes for table `tb_user`
+--
+ALTER TABLE `tb_user`
+ ADD PRIMARY KEY (`userID`);
+
+--
+-- Indexes for table `user_type`
+--
+ALTER TABLE `user_type`
+ ADD PRIMARY KEY (`typeID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `audit_trail`
+--
+ALTER TABLE `audit_trail`
+MODIFY `KeyID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+MODIFY `Num` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `loginout_history`
+--
+ALTER TABLE `loginout_history`
+MODIFY `Primary` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `loginout_serverhistory`
+--
+ALTER TABLE `loginout_serverhistory`
+MODIFY `Primary` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `purchases`
+--
+ALTER TABLE `purchases`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=74;
+--
+-- AUTO_INCREMENT for table `reply_message`
+--
+ALTER TABLE `reply_message`
+MODIFY `Primary_key` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `sent_messages`
+--
+ALTER TABLE `sent_messages`
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tb_productreport`
+--
+ALTER TABLE `tb_productreport`
+MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `tb_products`
+--
+ALTER TABLE `tb_products`
+MODIFY `productID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `tb_sentmessage`
+--
+ALTER TABLE `tb_sentmessage`
+MODIFY `Primary_key` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
